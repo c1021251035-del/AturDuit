@@ -1,0 +1,219 @@
+"use client";
+
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
+import {
+  AppState,
+  Profile,
+  SubCategory,
+  Transaction,
+  buildBudget,
+  currentMonth,
+  defaultSubCategories,
+  recalcSubCategories,
+  uid,
+} from "./budget";
+
+const STORAGE_KEY = "aturduit:v1";
+
+const defaultState: AppState = {
+  profile: null,
+  name: "",
+  income: 0,
+  ratio: { need: 50, want: 30, save: 20 },
+  subCategories: [],
+  transactions: [],
+  budgetMonth: currentMonth(),
+};
+
+interface StoreContextValue {
+  state: AppState;
+  isOnboarded: boolean;
+  theme: "light" | "dark";
+  setTheme: (t: "light" | "dark") => void;
+  setProfile: (p: Profile, name?: string) => void;
+  setIncome: (income: number) => void;
+  setRatio: (ratio: { need: number; want: number; save: number }) => void;
+  updateSubCategory: (id: string, amount: number) => void;
+  rebuildSubCategories: () => void;
+  addTransaction: (t: Omit<Transaction, "id">) => void;
+  updateTransaction: (id: string, t: Partial<Transaction>) => void;
+  deleteTransaction: (id: string) => void;
+  reset: () => void;
+}
+
+const StoreContext = createContext<StoreContextValue | null>(null);
+
+export function StoreProvider({ children }: { children: React.ReactNode }) {
+  const [state, setState] = useState<AppState>(defaultState);
+  const [theme, setThemeState] = useState<"light" | "dark">("light");
+  const [hydrated, setHydrated] = useState(false);
+
+  // Hydrate from localStorage
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw) as {
+          state?: AppState;
+          theme?: "light" | "dark";
+        };
+        if (parsed.state) setState({ ...defaultState, ...parsed.state });
+        if (parsed.theme) setThemeState(parsed.theme);
+      }
+    } catch {
+      // ignore
+    }
+    setHydrated(true);
+  }, []);
+
+  // Persist
+  useEffect(() => {
+    if (!hydrated) return;
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify({ state, theme })
+    );
+  }, [state, theme, hydrated]);
+
+  // Theme class on html
+  useEffect(() => {
+    const root = document.documentElement;
+    if (theme === "dark") root.classList.add("dark");
+    else root.classList.remove("dark");
+  }, [theme]);
+
+  const setTheme = useCallback((t: "light" | "dark") => {
+    setThemeState(t);
+  }, []);
+
+  const setProfile = useCallback((p: Profile, name?: string) => {
+    setState((prev) => {
+      const subs =
+        prev.profile === p ? prev.subCategories : defaultSubCategories(p);
+      return {
+        ...prev,
+        profile: p,
+        name: name ?? prev.name,
+        subCategories: subs,
+      };
+    });
+  }, []);
+
+  const setIncome = useCallback((income: number) => {
+    setState((prev) => {
+      const subs = prev.subCategories.length
+        ? prev.subCategories
+        : prev.profile
+          ? defaultSubCategories(prev.profile)
+          : [];
+      const recalc = recalcSubCategories(subs, income, prev.ratio);
+      return { ...prev, income, subCategories: recalc };
+    });
+  }, []);
+
+  const setRatio = useCallback(
+    (ratio: { need: number; want: number; save: number }) => {
+      setState((prev) => {
+        const subs = recalcSubCategories(prev.subCategories, prev.income, ratio);
+        return { ...prev, ratio, subCategories: subs };
+      });
+    },
+    []
+  );
+
+  const updateSubCategory = useCallback((id: string, amount: number) => {
+    setState((prev) => ({
+      ...prev,
+      subCategories: prev.subCategories.map((s) =>
+        s.id === id ? { ...s, amount: Math.max(0, amount) } : s
+      ),
+    }));
+  }, []);
+
+  const rebuildSubCategories = useCallback(() => {
+    setState((prev) => {
+      if (!prev.profile) return prev;
+      const subs = buildBudget(prev.profile, prev.income, prev.ratio);
+      return { ...prev, subCategories: subs };
+    });
+  }, []);
+
+  const addTransaction = useCallback((t: Omit<Transaction, "id">) => {
+    setState((prev) => ({
+      ...prev,
+      transactions: [{ id: uid(), ...t }, ...prev.transactions],
+    }));
+  }, []);
+
+  const updateTransaction = useCallback(
+    (id: string, patch: Partial<Transaction>) => {
+      setState((prev) => ({
+        ...prev,
+        transactions: prev.transactions.map((t) =>
+          t.id === id ? { ...t, ...patch } : t
+        ),
+      }));
+    },
+    []
+  );
+
+  const deleteTransaction = useCallback((id: string) => {
+    setState((prev) => ({
+      ...prev,
+      transactions: prev.transactions.filter((t) => t.id !== id),
+    }));
+  }, []);
+
+  const reset = useCallback(() => {
+    setState({ ...defaultState, budgetMonth: currentMonth() });
+  }, []);
+
+  const value = useMemo<StoreContextValue>(
+    () => ({
+      state,
+      isOnboarded: state.profile !== null && state.income > 0,
+      theme,
+      setTheme,
+      setProfile,
+      setIncome,
+      setRatio,
+      updateSubCategory,
+      rebuildSubCategories,
+      addTransaction,
+      updateTransaction,
+      deleteTransaction,
+      reset,
+    }),
+    [
+      state,
+      theme,
+      setTheme,
+      setProfile,
+      setIncome,
+      setRatio,
+      updateSubCategory,
+      rebuildSubCategories,
+      addTransaction,
+      updateTransaction,
+      deleteTransaction,
+      reset,
+    ]
+  );
+
+  return (
+    <StoreContext.Provider value={value}>{children}</StoreContext.Provider>
+  );
+}
+
+export function useStore() {
+  const ctx = useContext(StoreContext);
+  if (!ctx) throw new Error("useStore must be used within StoreProvider");
+  return ctx;
+}

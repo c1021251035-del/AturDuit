@@ -1,0 +1,805 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Bebas+Neue&display=swap');
+
+:root {
+  /* Nike Core Palette */
+  --ink: #111111;
+  --canvas: #ffffff;
+  --soft-cloud: #f5f5f5;
+  --hairline: #cacacb;
+  --hairline-soft: #e5e5e5;
+  --charcoal: #39393b;
+  --ash: #4b4b4d;
+  --mute: #707072;
+  --stone: #9e9ea0;
+  --sale: #d30005;
+  --sale-deep: #780700;
+  --success: #007d48;
+  --success-bright: #1eaa52;
+  --info: #1151ff;
+  --info-deep: #0034e3;
+
+  /* Category Accents (sparingly used) */
+  --accent: #1151ff;
+  --accent-pink: #ed1aa0;
+  --accent-pink-soft: #ffb0dd;
+  --accent-purple-soft: #beaffd;
+  --accent-purple-pale: #d6d1ff;
+  --accent-teal: #0a7281;
+  --accent-pink-deep: #4c012d;
+  --warning: #c4841d;
+
+  /* Semantic mappings for shadcn compatibility */
+  --background: var(--canvas);
+  --foreground: var(--ink);
+  --card: var(--canvas);
+  --card-foreground: var(--ink);
+  --popover: var(--canvas);
+  --popover-foreground: var(--ink);
+  --primary: var(--ink);
+  --primary-foreground: var(--canvas);
+  --secondary: var(--soft-cloud);
+  --secondary-foreground: var(--ink);
+  --muted: var(--soft-cloud);
+  --muted-foreground: var(--mute);
+  --accent: var(--soft-cloud);
+  --accent-foreground: var(--ink);
+  --destructive: var(--sale);
+  --destructive-foreground: var(--canvas);
+  --border: var(--hairline);
+  --input: var(--hairline);
+  --ring: var(--ink);
+  --radius: 0px;
+
+  /* Nike Radius Tokens */
+  --rounded-none: 0px;
+  --rounded-sm: 18px;
+  --rounded-md: 24px;
+  --rounded-lg: 30px;
+  --rounded-full: 9999px;
+
+  /* Nike Spacing Tokens (8px base) */
+  --spacing-xxs: 2px;
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 18px;
+  --spacing-xl: 24px;
+  --spacing-xxl: 30px;
+  --spacing-section: 48px;
+}
+
+.dark {
+  --background: var(--ink);
+  --foreground: var(--canvas);
+  --card: var(--ink);
+  --card-foreground: var(--canvas);
+  --popover: var(--ink);
+  --popover-foreground: var(--canvas);
+  --primary: var(--canvas);
+  --primary-foreground: var(--ink);
+  --secondary: var(--ash);
+  --secondary-foreground: var(--canvas);
+  --muted: var(--ash);
+  --muted-foreground: var(--stone);
+  --accent: var(--ash);
+  --accent-foreground: var(--canvas);
+  --destructive: var(--sale);
+  --destructive-foreground: var(--canvas);
+  --border: var(--hairline);
+  --input: var(--hairline);
+  --ring: var(--canvas);
+}
+
+* {
+  border-color: var(--border);
+}
+
+html {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0;
+}
+
+@layer utilities {
+  /* Nike Typography Scale */
+  .text-display-campaign {
+    font-family: 'Bebas Neue', 'Anton', sans-serif;
+    font-size: 96px;
+    font-weight: 500;
+    line-height: 0.9;
+    text-transform: uppercase;
+    letter-spacing: 0;
+  }
+
+  .text-heading-xl {
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0;
+  }
+
+  .text-heading-lg {
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0;
+  }
+
+  .text-heading-md {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.75;
+    letter-spacing: 0;
+  }
+
+  .text-body-md {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: 0;
+  }
+
+  .text-body-strong {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: 0;
+  }
+
+  .text-button-lg {
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0;
+  }
+
+  .text-button-md {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: 0;
+  }
+
+  .text-button-sm {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: 0;
+  }
+
+  .text-link-md {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.75;
+    letter-spacing: 0;
+    text-decoration: underline;
+  }
+
+  .text-caption-md {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: 0;
+  }
+
+  .text-caption-sm {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: 0;
+  }
+
+  .text-utility-xs {
+    font-size: 9px;
+    font-weight: 500;
+    line-height: 1.75;
+    letter-spacing: 0;
+  }
+
+  /* Nike Radius Utilities */
+  .rounded-nike-none { border-radius: var(--rounded-none); }
+  .rounded-nike-sm { border-radius: var(--rounded-sm); }
+  .rounded-nike-md { border-radius: var(--rounded-md); }
+  .rounded-nike-lg { border-radius: var(--rounded-lg); }
+  .rounded-nike-full { border-radius: var(--rounded-full); }
+
+  /* Nike Spacing Utilities */
+  .space-y-nike-section > * + * { margin-top: var(--spacing-section); }
+  .gap-nike-section { gap: var(--spacing-section); }
+  .py-nike-section { padding-top: var(--spacing-section); padding-bottom: var(--spacing-section); }
+
+  /* Nike Flat Card - no shadow, no radius, hairline divider only */
+  .nike-card {
+    background-color: var(--card);
+    border-radius: var(--rounded-none);
+    border: 0;
+    box-shadow: none;
+  }
+
+  .nike-card-divided {
+    border-bottom: 1px solid var(--hairline);
+  }
+
+  /* Nike Button Primary - Ink Pill */
+  .btn-nike-primary {
+    background-color: var(--ink);
+    color: var(--canvas);
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.5;
+    padding: 16px 32px;
+    height: 48px;
+    border-radius: var(--rounded-lg);
+    border: none;
+    cursor: pointer;
+    transition: transform 0.1s ease, opacity 0.1s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .btn-nike-primary:hover {
+    background-color: var(--ink);
+  }
+
+  .btn-nike-primary:active {
+    transform: scale(0.98);
+    opacity: 0.8;
+  }
+
+  .btn-nike-primary:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+  }
+
+  .btn-nike-primary:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  /* Nike Button Secondary - Soft Cloud Pill */
+  .btn-nike-secondary {
+    background-color: var(--soft-cloud);
+    color: var(--ink);
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.5;
+    padding: 16px 32px;
+    height: 48px;
+    border-radius: var(--rounded-lg);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .btn-nike-secondary:hover {
+    background-color: var(--hairline-soft);
+  }
+
+  .btn-nike-secondary:active {
+    background-color: var(--hairline);
+  }
+
+  .btn-nike-secondary:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+  }
+
+  /* Nike Button Outline on Image - White Pill */
+  .btn-nike-outline-image {
+    background-color: var(--canvas);
+    color: var(--ink);
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.5;
+    padding: 12px 24px;
+    border-radius: var(--rounded-lg);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.15s ease, opacity 0.1s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .btn-nike-outline-image:hover {
+    background-color: var(--soft-cloud);
+  }
+
+  .btn-nike-outline-image:active {
+    opacity: 0.8;
+  }
+
+  .btn-nike-outline-image:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+  }
+
+  /* Nike Icon Circular Button */
+  .btn-nike-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--rounded-full);
+    border: none;
+    background-color: var(--soft-cloud);
+    color: var(--ink);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.15s ease, opacity 0.1s ease;
+  }
+
+  .btn-nike-icon:hover {
+    background-color: var(--hairline-soft);
+  }
+
+  .btn-nike-icon:active {
+    opacity: 0.7;
+  }
+
+  .btn-nike-icon:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+  }
+
+  .btn-nike-icon.transparent {
+    background-color: transparent;
+  }
+
+  .btn-nike-icon.transparent:hover {
+    background-color: var(--soft-cloud);
+  }
+
+  /* Nike Filter Chip */
+  .nike-filter-chip {
+    background-color: var(--canvas);
+    color: var(--ink);
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.5;
+    padding: 8px 16px;
+    height: 40px;
+    border-radius: var(--rounded-lg);
+    border: 1px solid var(--hairline);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .nike-filter-chip:hover {
+    background-color: var(--soft-cloud);
+    border-color: var(--hairline);
+  }
+
+  .nike-filter-chip.active {
+    background-color: var(--ink);
+    color: var(--canvas);
+    border-color: var(--ink);
+  }
+
+  .nike-filter-chip:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+  }
+
+  /* Nike Search Pill */
+  .nike-search-pill {
+    background-color: var(--soft-cloud);
+    color: var(--ink);
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+    padding: 8px 16px;
+    height: 40px;
+    border-radius: var(--rounded-md);
+    border: none;
+    width: 100%;
+    transition: all 0.15s ease;
+  }
+
+  .nike-search-pill::placeholder {
+    color: var(--mute);
+  }
+
+  .nike-search-pill:focus {
+    background-color: var(--canvas);
+    border: 2px solid var(--ink);
+    box-shadow: 0 0 0 12px var(--soft-cloud);
+    outline: none;
+  }
+
+  .nike-search-pill:focus::placeholder {
+    color: var(--ash);
+  }
+
+  /* Nike Swatch Dot */
+  .nike-swatch-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: var(--rounded-full);
+    border: 1px solid transparent;
+    transition: all 0.15s ease;
+  }
+
+  .nike-swatch-dot.light {
+    border-color: var(--hairline);
+  }
+
+  .nike-swatch-dot.active {
+    border-width: 2px;
+    border-color: var(--ink);
+    box-shadow: 0 0 0 2px var(--canvas);
+  }
+
+  /* Nike Promo Badge */
+  .nike-badge-promo {
+    background-color: var(--canvas);
+    color: var(--ink);
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.5;
+    padding: 4px 12px;
+    border-radius: var(--rounded-lg);
+    border: 1px solid var(--hairline);
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* Nike Sale Price */
+  .nike-price-sale {
+    color: var(--sale);
+    font-weight: 500;
+  }
+
+  .nike-price-original {
+    color: var(--mute);
+    text-decoration: line-through;
+    font-weight: 400;
+  }
+
+  .nike-price-off {
+    color: var(--sale);
+    font-weight: 500;
+    font-size: 14px;
+  }
+
+  /* Nike Utility Bar */
+  .nike-utility-bar {
+    background-color: var(--soft-cloud);
+    color: var(--ink);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.5;
+    height: 36px;
+    border-radius: var(--rounded-none);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 24px;
+    padding: 0 16px;
+  }
+
+  .nike-utility-bar a {
+    color: var(--ink);
+    text-decoration: none;
+    transition: opacity 0.15s ease;
+  }
+
+  .nike-utility-bar a:hover {
+    opacity: 0.7;
+  }
+
+  /* Nike Primary Nav */
+  .nike-primary-nav {
+    background-color: var(--canvas);
+    color: var(--ink);
+    height: 56px;
+    border-radius: var(--rounded-none);
+    border-bottom: 1px solid var(--hairline);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+  }
+
+  .nike-primary-nav-link {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.5;
+    color: var(--ink);
+    text-decoration: none;
+    padding: 8px 12px;
+    transition: opacity 0.15s ease;
+    position: relative;
+  }
+
+  .nike-primary-nav-link:hover {
+    opacity: 0.7;
+  }
+
+  .nike-primary-nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 12px;
+    right: 12px;
+    height: 2px;
+    background-color: var(--ink);
+  }
+
+  /* Nike Sticky Bar - inset hairline bottom */
+  .nike-sticky-bar {
+    background-color: var(--canvas);
+    border-radius: var(--rounded-none);
+    box-shadow: inset 0 -1px 0 var(--hairline-soft);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 24px;
+  }
+
+  /* Nike Product Card - flat, soft-cloud image bg, no radius */
+  .nike-product-card {
+    background-color: var(--canvas);
+    border-radius: var(--rounded-none);
+    border: 0;
+    box-shadow: none;
+    overflow: hidden;
+  }
+
+  .nike-product-card-image {
+    background-color: var(--soft-cloud);
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .nike-product-card-meta {
+    padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  /* Nike Section Divider - hairline only */
+  .nike-section-divider {
+    border-top: 1px solid var(--hairline);
+    margin: var(--spacing-section) 0;
+  }
+
+  /* Nike Input */
+  .nike-input {
+    background-color: var(--canvas);
+    border: 1px solid var(--hairline);
+    border-radius: var(--rounded-none);
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--ink);
+    padding: 12px 16px;
+    height: 48px;
+    width: 100%;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .nike-input::placeholder {
+    color: var(--mute);
+  }
+
+  .nike-input:focus {
+    border-color: var(--ink);
+    outline: none;
+    box-shadow: 0 0 0 2px var(--ink);
+  }
+
+  .nike-input:disabled {
+    background-color: var(--soft-cloud);
+    color: var(--mute);
+    cursor: not-allowed;
+  }
+
+  /* Nike Select */
+  .nike-select {
+    @extend .nike-input;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23111111' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 40px;
+  }
+
+  /* Range slider - Nike style */
+  .nike-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    width: 100%;
+    height: 8px;
+  }
+
+  .nike-slider::-webkit-slider-runnable-track {
+    height: 4px;
+    background: var(--hairline-soft);
+    border-radius: 2px;
+  }
+
+  .nike-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: var(--rounded-full);
+    background: var(--ink);
+    margin-top: -8px;
+    cursor: pointer;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+  }
+
+  .nike-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+  }
+
+  .nike-slider::-webkit-slider-thumb:active {
+    transform: scale(1.2);
+  }
+
+  .nike-slider::-moz-range-track {
+    height: 4px;
+    background: var(--hairline-soft);
+    border-radius: 2px;
+    border: none;
+  }
+
+  .nike-slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: var(--rounded-full);
+    background: var(--ink);
+    border: none;
+    cursor: pointer;
+  }
+
+  /* Nike Progress Ring (for circular budget rings) */
+  .nike-progress-ring {
+    transform: rotate(-90deg);
+  }
+
+  .nike-progress-ring-bg {
+    fill: none;
+    stroke: var(--hairline-soft);
+    stroke-width: 10;
+  }
+
+  .nike-progress-ring-fg {
+    fill: none;
+    stroke-width: 10;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.5s ease-out;
+  }
+
+  /* Nike Category Colors for rings */
+  .nike-ring-need { stroke: hsl(var(--need)); }
+  .nike-ring-want { stroke: hsl(var(--want)); }
+  .nike-ring-save { stroke: hsl(var(--save)); }
+
+  .nike-ring-bg-need { stroke: hsl(var(--need) / 0.12); }
+  .nike-ring-bg-want { stroke: hsl(var(--want) / 0.12); }
+  .nike-ring-bg-save { stroke: hsl(var(--save) / 0.12); }
+
+  /* Focus visible utility */
+  .focus-visible-ring:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+  }
+
+  /* Scrollbar - Nike minimal */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--hairline);
+    border-radius: 4px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--mute);
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+
+  /* Responsive Typography */
+  @media (max-width: 1023px) {
+    .text-display-campaign {
+      font-size: 64px;
+    }
+    .text-heading-xl {
+      font-size: 28px;
+    }
+  }
+
+  @media (max-width: 599px) {
+    .text-display-campaign {
+      font-size: 48px;
+    }
+    .text-heading-xl {
+      font-size: 24px;
+    }
+    .py-nike-section {
+      padding-top: var(--spacing-xl);
+      padding-bottom: var(--spacing-xl);
+    }
+  }
+
+  /* Print styles */
+  @media print {
+    .nike-utility-bar,
+    .nike-primary-nav,
+    .nike-sticky-bar,
+    .btn-nike-primary,
+    .btn-nike-secondary,
+    .btn-nike-outline-image,
+    .btn-nike-icon,
+    .nike-search-pill,
+    .nike-filter-chip {
+      display: none !important;
+    }
+  }
+}
+
+/* shadcn compat - override their shadow utilities */
+.shadow-card,
+.shadow-elevated,
+.shadow-soft {
+  box-shadow: none !important;
+}
+
+.rounded-xl,
+.rounded-lg,
+.rounded-md,
+.rounded-sm {
+  border-radius: var(--rounded-none) !important;
+}
+
+/* Ensure our Nike radii take precedence */
+.rounded-nike-lg { border-radius: var(--rounded-lg) !important; }
+.rounded-nike-md { border-radius: var(--rounded-md) !important; }
+.rounded-nike-sm { border-radius: var(--rounded-sm) !important; }
+.rounded-nike-none { border-radius: var(--rounded-none) !important; }
+.rounded-nike-full { border-radius: var(--rounded-full) !important; }

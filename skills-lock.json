@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "skills": {
+    "shadcn-ui": {
+      "source": "giuseppe-trisciuoglio/developer-kit",
+      "sourceType": "github",
+      "skillPath": "plugins/developer-kit-typescript/skills/shadcn-ui/SKILL.md",
+      "computedHash": "5264d0399edb2e9cb517c722067fea44657a35ece43407a3aaa9e3ba9bd7f670"
+    },
+    "sleek-design-mobile-apps": {
+      "source": "sleekdotdesign/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/design-mobile-apps/SKILL.md",
+      "computedHash": "9c33086ee6c4f57623b962fb9fe3b5d0e07f6662906187b518cec1746cb4fdf1"
+    },
+    "tailwind-design-system": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "skillPath": "plugins/frontend-mobile-development/skills/tailwind-design-system/SKILL.md",
+      "computedHash": "992ab1e874c4f4159aa18d4ff45d1c3f86f322f0bd2a6744cc32f7d6147f9f06"
+    },
+    "ui-ux-pro-max": {
+      "source": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/ui-ux-pro-max/SKILL.md",
+      "computedHash": "90739ddf380aa66d4fff7ba7767a0a6537a1e8287e5c5c408676e0a9e6b2c21d"
+    },
+    "web-design-guidelines": {
+      "source": "vercel-labs/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/web-design-guidelines/SKILL.md",
+      "computedHash": "f3bc47f890f42a44db1007ab390709ec368e4b8c089baee6b0007182236ac474"
+    }
+  }
+}
