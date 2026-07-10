@@ -87,9 +87,9 @@ export default function DashboardPage() {
 
   return (
     <AppShell>
-      <div className="max-w-5xl mx-auto py-8 px-6 space-y-8">
+      <div className="max-w-5xl mx-auto py-6 px-4 md:px-6 space-y-6">
         {/* KPI Cards */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 gap-3">
           {kpis.map(({ label, value, Icon, color }) => (
             <div key={label} className="bg-[var(--canvas)] border border-[var(--hairline)] p-5 transition-colors hover:bg-[var(--soft-cloud)] cursor-default">
               <div className="flex items-center gap-2 mb-2">
@@ -106,14 +106,14 @@ export default function DashboardPage() {
           <h2 className="text-body-strong text-[var(--ink)] uppercase tracking-wider mb-6">
             Proporsi Budget
           </h2>
-          <div className="flex flex-col md:flex-row items-center justify-center gap-12">
+          <div className="flex flex-col items-center gap-8">
             {cats.map((cat) => {
               const pct = state.ratio[cat];
               const alloc = categoryTotal(state.subCategories, cat);
               const offset = RING_CIRCUMFERENCE * (1 - pct / 100);
               return (
-                <div key={cat} className="flex flex-col items-center gap-3">
-                  <div className="relative w-40 h-40 flex-shrink-0">
+                <div key={cat} className="flex flex-col items-center gap-2 w-full max-w-[200px]">
+                  <div className="relative w-32 h-32 md:w-40 md:h-40 flex-shrink-0">
                     <svg className="w-full h-full" viewBox={`0 0 ${RING_VIEWBOX} ${RING_VIEWBOX}`}>
                       <circle fill="none" stroke="var(--hairline-soft)" strokeWidth="10" cx="80" cy="80" r={RING_RADIUS} />
                       <circle
@@ -128,15 +128,17 @@ export default function DashboardPage() {
                       />
                     </svg>
                     <div className="absolute inset-0 flex flex-col items-center justify-center">
-                      <span className="text-3xl font-bold tabular-nums">{pct}%</span>
+                      <span className="text-2xl md:text-3xl font-bold tabular-nums">{pct}%</span>
                     </div>
                   </div>
-                  <span className="text-caption-sm text-[var(--ink)] font-medium uppercase">
-                    {CATEGORY_META[cat].label}
-                  </span>
-                  <span className="text-caption-sm text-[var(--mute)] tabular-nums">
-                    {hasData ? formatRupiah(alloc) : "—"}
-                  </span>
+                  <div className="text-center">
+                    <span className="text-caption-sm text-[var(--ink)] font-medium uppercase block">
+                      {CATEGORY_META[cat].label}
+                    </span>
+                    <span className="text-caption-sm text-[var(--mute)] tabular-nums block">
+                      {hasData ? formatRupiah(alloc) : "—"}
+                    </span>
+                  </div>
                 </div>
               );
             })}
