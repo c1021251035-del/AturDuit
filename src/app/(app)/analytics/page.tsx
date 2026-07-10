@@ -62,9 +62,9 @@ export default function AnalyticsPage() {
 
   return (
     <AppShell>
-      <div className="max-w-5xl mx-auto py-6 px-6 space-y-6">
+      <div className="max-w-5xl mx-auto py-6 px-4 md:px-6 space-y-6">
         {/* Header */}
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between">
           <div>
             <h1 className="text-heading-xl font-bold">Analitik</h1>
             <p className="text-caption-md text-[var(--mute)] mt-1">{monthLabel}</p>

@@ -128,11 +128,11 @@ export default function TransactionsPage() {
 
   return (
     <AppShell>
-      <div className="max-w-5xl mx-auto py-nike-section px-6 space-y-nike-section">
+      <div className="max-w-5xl mx-auto py-6 px-4 md:px-6 space-y-6">
         {/* Header */}
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <h1 className="text-heading-xl font-bold">Transaksi</h1>
-          <button className="btn-nike-primary text-button-sm" onClick={() => { setEditId(null); setModalOpen(true); }}>
+          <button className="btn-nike-primary text-button-sm w-full sm:w-auto" onClick={() => { setEditId(null); setModalOpen(true); }}>
             <Plus className="w-4 h-4" />
             Tambah
           </button>

@@ -52,9 +52,9 @@ export default function BudgetPage() {
 
   return (
     <AppShell>
-      <div className="max-w-5xl mx-auto py-nike-section px-6 space-y-nike-section">
+      <div className="max-w-5xl mx-auto py-6 px-4 md:px-6 space-y-6">
         {/* Header */}
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <div>
             <h1 className="text-heading-xl font-bold">Budget Bulanan</h1>
             <p className="text-caption-md text-[var(--mute)] mt-1">{monthLabel}</p>
