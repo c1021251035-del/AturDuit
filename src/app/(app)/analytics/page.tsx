@@ -73,8 +73,8 @@ export default function AnalyticsPage() {
 
         {/* Savings Rate */}
         <div className="bg-[var(--canvas)] border border-[var(--hairline)]">
-          <div className="p-6 flex flex-col md:flex-row items-center md:items-start justify-between gap-6">
-            <div className="flex items-center gap-8">
+          <div className="p-6 flex flex-col md:flex-row items-center gap-8">
+            <div className="flex items-center gap-8 w-full md:w-auto">
               <div className="relative w-40 h-40 flex-shrink-0">
                 <svg className="w-full h-full" viewBox={`0 0 ${ANALYTICS_RING_VIEWBOX} ${ANALYTICS_RING_VIEWBOX}`}>
                   <circle fill="none" stroke="var(--hairline-soft)" strokeWidth="10" cx="80" cy="80" r={ANALYTICS_RING_RADIUS} />
@@ -93,7 +93,7 @@ export default function AnalyticsPage() {
                   <span className="text-4xl font-bold tabular-nums">{savingsRate.toFixed(1)}%</span>
                 </div>
               </div>
-              <div>
+              <div className="text-center md:text-left">
                 <p className="text-caption-sm text-[var(--mute)] uppercase tracking-wider">Tabungan</p>
                 <p className="text-heading-xl font-bold tabular-nums">{formatRupiah(totalIncome - totalSpentAmount)}</p>
                 <p className="text-caption-md text-[var(--mute)]">dari {formatRupiah(totalIncome)} pendapatan</p>

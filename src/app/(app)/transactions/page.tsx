@@ -140,15 +140,12 @@ export default function TransactionsPage() {
 
         {/* Search + Filters */}
         <div className="space-y-4">
-          <div className="relative max-w-md">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--mute)]" />
-            <input
-              className="nike-search-pill pl-10"
-              placeholder="Cari transaksi..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-          </div>
+          <input
+            className="nike-search-pill"
+            placeholder="Cari transaksi..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
 
           <div className="flex flex-wrap gap-2">
             <button

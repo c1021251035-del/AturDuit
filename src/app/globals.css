@@ -220,11 +220,11 @@ body {
   .gap-nike-section { gap: var(--spacing-section); }
   .py-nike-section { padding-top: var(--spacing-section); padding-bottom: var(--spacing-section); }
 
-  /* Nike Flat Card - no shadow, no radius, hairline divider only */
+  /* Nike Flat Card - hairline border, no shadow, no radius */
   .nike-card {
     background-color: var(--card);
     border-radius: var(--rounded-none);
-    border: 0;
+    border: 1px solid var(--hairline);
     box-shadow: none;
   }
 
