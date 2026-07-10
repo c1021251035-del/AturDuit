@@ -47,7 +47,6 @@ export default function SettingsPage() {
   const { state, setProfile, setIncome, setRatio, reset } = useStore();
   const [income, setIncomeVal] = useState(state.income?.toString() || "");
   const [saved, setSaved] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
 
   const handleSave = () => {
     if (income) {
@@ -185,39 +184,6 @@ export default function SettingsPage() {
               )}>
                 {state.ratio.need + state.ratio.want + state.ratio.save}%
               </span>
-            </div>
-          </div>
-        </div>
-
-        {/* Theme */}
-        <div className="bg-[var(--canvas)] border border-[var(--hairline)]">
-          <div className="p-6 border-b border-[var(--hairline)]">
-            <h2 className="text-caption-sm text-[var(--mute)] uppercase tracking-wider">
-              Tampilan
-            </h2>
-          </div>
-          <div className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-body-strong">Mode Gelap</p>
-                <p className="text-caption-sm text-[var(--mute)] mt-1">
-                  Aktifkan tema gelap
-                </p>
-              </div>
-              <button
-                className={cn(
-                  "w-12 h-6 rounded-nike-full transition-all relative",
-                  darkMode ? "bg-[var(--ink)]" : "bg-[var(--hairline)]"
-                )}
-                onClick={() => setDarkMode(!darkMode)}
-              >
-                <span
-                  className={cn(
-                    "absolute top-1 w-4 h-4 rounded-nike-full bg-white transition-all",
-                    darkMode ? "left-7" : "left-1"
-                  )}
-                />
-              </button>
             </div>
           </div>
         </div>
