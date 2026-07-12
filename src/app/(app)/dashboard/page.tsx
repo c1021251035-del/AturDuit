@@ -60,12 +60,16 @@ const catIconMap: Record<Category, typeof IncomeIcon> = {
 
 const ringStrokeColor: Record<Category, string> = {
   need: "var(--ink)",
-  want: "var(--mute)",
-  save: "var(--success)",
+  want: "var(--ink)",
+  save: "var(--ink)",
 };
 
 const RING_RADIUS = 60;
-const RING_CIRCUMFERENCE = 2 * Math.PI * RING_RADIUS;
+const ringWidth = {
+  needs: 4,
+  wants: 3,
+  savings: 2,
+};
 const RING_VIEWBOX = 160;
 
 export default function DashboardPage() {
@@ -115,16 +119,21 @@ export default function DashboardPage() {
                 <div key={cat} className="flex flex-col items-center gap-2 w-full max-w-[200px]">
                   <div className="relative w-32 h-32 md:w-40 md:h-40 flex-shrink-0">
                     <svg className="w-full h-full" viewBox={`0 0 ${RING_VIEWBOX} ${RING_VIEWBOX}`}>
-                      <circle fill="none" stroke="var(--hairline-soft)" strokeWidth="10" cx="80" cy="80" r={RING_RADIUS} />
                       <circle
                         fill="none"
-                        stroke={ringStrokeColor[cat]}
-                        strokeWidth="10"
+                        stroke="var(--hairline-soft)"
+                        strokeWidth={2}
+                        cx="80" cy="80" r={RING_RADIUS}
+                      />
+                      <circle
+                        fill="none"
+                        stroke="var(--ink)"
+                        strokeWidth={ringWidth[cat]}
                         strokeLinecap="round"
                         cx="80" cy="80" r={RING_RADIUS}
                         strokeDasharray={RING_CIRCUMFERENCE}
                         strokeDashoffset={offset}
-                        style={{ transition: "stroke-dashoffset 500ms ease" }}
+                        style={{ transition: "stroke-dashoffset 500ms cubic-bezier(0.16, 1, 0.3, 1)" }}
                       />
                     </svg>
                     <div className="absolute inset-0 flex flex-col items-center justify-center">
