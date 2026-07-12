@@ -66,10 +66,10 @@ const ringStrokeColor: Record<Category, string> = {
 
 const RING_RADIUS = 60;
 const RING_CIRCUMFERENCE = 2 * Math.PI * RING_RADIUS;
-const ringWidth = {
-  needs: 4,
-  wants: 3,
-  savings: 2,
+const ringWidth: Record<string, number> = {
+  need: 4,
+  want: 3,
+  save: 2,
 };
 const RING_VIEWBOX = 160;
 
