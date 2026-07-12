@@ -41,13 +41,18 @@ function InfoIcon({ className }: { className?: string }) {
 
 const ringStrokeColor: Record<Category, string> = {
   need: "var(--ink)",
-  want: "var(--mute)",
-  save: "var(--success)",
+  want: "var(--ink)",
+  save: "var(--ink)",
 };
 
 const ANALYTICS_RING_RADIUS = 60;
 const ANALYTICS_RING_CIRCUMFERENCE = 2 * Math.PI * ANALYTICS_RING_RADIUS;
 const ANALYTICS_RING_VIEWBOX = 160;
+const ringWidthAnalytics: Record<Category, number> = {
+  need: 4,
+  want: 3,
+  save: 2,
+};
 
 export default function AnalyticsPage() {
   const { state } = useStore();
@@ -77,16 +82,16 @@ export default function AnalyticsPage() {
             <div className="flex items-center gap-8 w-full md:w-auto">
               <div className="relative w-40 h-40 flex-shrink-0">
                 <svg className="w-full h-full" viewBox={`0 0 ${ANALYTICS_RING_VIEWBOX} ${ANALYTICS_RING_VIEWBOX}`}>
-                  <circle fill="none" stroke="var(--hairline-soft)" strokeWidth="10" cx="80" cy="80" r={ANALYTICS_RING_RADIUS} />
+                  <circle fill="none" stroke="var(--hairline-soft)" strokeWidth={2} cx="80" cy="80" r={ANALYTICS_RING_RADIUS} />
                   <circle
                     fill="none"
-                    stroke="var(--success)"
-                    strokeWidth="10"
+                    stroke="var(--ink)"
+                    strokeWidth={4}
                     strokeLinecap="round"
                     cx="80" cy="80" r={ANALYTICS_RING_RADIUS}
-                    strokeDasharray={ANALYTICS_RING_CIRCUMFERENCE}
+                    strokeDasharray={savingsCircumference}
                     strokeDashoffset={savingsOffset}
-                    style={{ transition: "stroke-dashoffset 500ms ease" }}
+                    style={{ transition: "stroke-dashoffset 500ms cubic-bezier(0.16, 1, 0.3, 1)" }}
                   />
                 </svg>
                 <div className="absolute inset-0 flex flex-col items-center justify-center">
@@ -112,22 +117,21 @@ export default function AnalyticsPage() {
               const alloc = categoryTotal(state.subCategories, cat);
               const spent = totalSpent(state.transactions, cat, month);
               const pct = alloc > 0 ? (spent / alloc) * 100 : 0;
-              const catColor = cat === "need" ? "var(--ink)" : cat === "want" ? "var(--mute)" : "var(--success)";
               return (
                 <div key={cat} className="space-y-1">
                   <div className="flex items-center justify-between">
                     <span className="flex items-center gap-2 text-body-strong">
-                      <div className="w-2 h-2 rounded-nike-full" style={{ backgroundColor: catColor }} />
+                      <div className="w-2 h-2 rounded-nike-sm bg-[var(--ink)]" />
                       {CATEGORY_META[cat].label}
                     </span>
                     <span className="text-caption-sm tabular-nums">
                       {formatRupiah(spent)} / {formatRupiah(alloc)}
                     </span>
                   </div>
-                  <div className="h-3 bg-[var(--hairline-soft)] rounded-nike-full overflow-hidden">
+                  <div className="h-2 bg-[var(--hairline-soft)] overflow-hidden">
                     <div
-                      className="h-full rounded-nike-full transition-all duration-500"
-                      style={{ width: `${Math.min(pct, 100)}%`, backgroundColor: catColor }}
+                      className="h-full transition-all duration-500"
+                      style={{ width: `${Math.min(pct, 100)}%`, backgroundColor: "var(--ink)" }}
                     />
                   </div>
                 </div>
@@ -147,11 +151,10 @@ export default function AnalyticsPage() {
               const alloc = categoryTotal(state.subCategories, cat);
               const spent = totalSpent(state.transactions, cat, month);
               const remaining = alloc - spent;
-              const catColor = cat === "need" ? "var(--ink)" : cat === "want" ? "var(--mute)" : "var(--success)";
               return (
                 <div key={cat} className="border border-[var(--hairline)] p-4 transition-colors hover:bg-[var(--soft-cloud)]">
                   <div className="flex items-center gap-2 mb-4">
-                    <div className="w-2 h-2 rounded-nike-full" style={{ backgroundColor: catColor }} />
+                    <div className="w-2 h-2 rounded-nike-sm bg-[var(--ink)]" />
                     <span className="text-body-strong">{CATEGORY_META[cat].label}</span>
                     <span className="text-caption-sm text-[var(--mute)]">{state.ratio[cat]}%</span>
                   </div>
