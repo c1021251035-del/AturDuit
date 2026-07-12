@@ -180,7 +180,7 @@ export default function TransactionsPage() {
                   <path d="M16 8h-6M16 12h-4M12 16h-2" />
                 </svg>
               </div>
-              <p className="text-caption-md text-[var(--mute)]">
+              <p className="text-caption-md text-[var(--ash)]">
                 {state.transactions.length === 0
                   ? "Belum ada transaksi"
                   : "Tidak ada transaksi yang cocok"}
