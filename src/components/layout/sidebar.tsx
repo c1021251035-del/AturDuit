@@ -44,7 +44,7 @@ export function Sidebar() {
                     className={cn(
                       "flex items-center gap-3 px-3 py-3 w-full text-left transition-colors duration-150 rounded-nike-sm",
                       isActive
-                        ? "font-medium bg-[var(--soft-cloud)] text-[var(--ink)]"
+                        ? "font-medium bg-[var(--ink)] text-[var(--canvas)] rounded-none"
                         : "text-[var(--mute)] hover:text-[var(--ink)] hover:bg-[var(--soft-cloud)]"
                     )}
                   >

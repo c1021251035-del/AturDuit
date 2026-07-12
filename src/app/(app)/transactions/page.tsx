@@ -140,12 +140,15 @@ export default function TransactionsPage() {
 
         {/* Search + Filters */}
         <div className="space-y-4">
-          <input
-            className="nike-search-pill"
-            placeholder="Cari transaksi..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
+          <div className="relative">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--mute)] pointer-events-none" />
+            <input
+              className="nike-search-pill"
+              placeholder="Cari transaksi..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
 
           <div className="flex flex-wrap gap-2">
             <button
@@ -169,7 +172,14 @@ export default function TransactionsPage() {
         {/* Table */}
         <Card className="nike-card bg-[var(--canvas)]">
           {filtered.length === 0 ? (
-            <div className="text-center py-12">
+            <div className="text-center py-12 px-6">
+              {/* Receipt icon - SVG inline to match transaction context */}
+              <div className="flex justify-center mb-4">
+                <svg className="text-[var(--hairline)]" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z" />
+                  <path d="M16 8h-6M16 12h-4M12 16h-2" />
+                </svg>
+              </div>
               <p className="text-caption-md text-[var(--mute)]">
                 {state.transactions.length === 0
                   ? "Belum ada transaksi"

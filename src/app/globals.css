@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
   /* Nike Core Palette */
@@ -23,7 +23,6 @@
   --info-deep: #0034e3;
 
   /* Category Accents (sparingly used) */
-  --accent: #1151ff;
   --accent-pink: #ed1aa0;
   --accent-pink-soft: #ffb0dd;
   --accent-purple-soft: #beaffd;
@@ -72,28 +71,6 @@
   --spacing-section: 48px;
 }
 
-.dark {
-  --background: var(--ink);
-  --foreground: var(--canvas);
-  --card: var(--ink);
-  --card-foreground: var(--canvas);
-  --popover: var(--ink);
-  --popover-foreground: var(--canvas);
-  --primary: var(--canvas);
-  --primary-foreground: var(--ink);
-  --secondary: var(--ash);
-  --secondary-foreground: var(--canvas);
-  --muted: var(--ash);
-  --muted-foreground: var(--stone);
-  --accent: var(--ash);
-  --accent-foreground: var(--canvas);
-  --destructive: var(--sale);
-  --destructive-foreground: var(--canvas);
-  --border: var(--hairline);
-  --input: var(--hairline);
-  --ring: var(--canvas);
-}
-
 * {
   border-color: var(--border);
 }
@@ -114,15 +91,6 @@ body {
 
 @layer utilities {
   /* Nike Typography Scale */
-  .text-display-campaign {
-    font-family: 'Bebas Neue', 'Anton', sans-serif;
-    font-size: 96px;
-    font-weight: 500;
-    line-height: 0.9;
-    text-transform: uppercase;
-    letter-spacing: 0;
-  }
-
   .text-heading-xl {
     font-size: 32px;
     font-weight: 500;
@@ -416,7 +384,10 @@ body {
     font-size: 16px;
     font-weight: 400;
     line-height: 1.5;
-    padding: 8px 16px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 40px;
+    padding-right: 16px;
     height: 40px;
     border-radius: var(--rounded-md);
     border: none;
@@ -425,7 +396,7 @@ body {
   }
 
   .nike-search-pill::placeholder {
-    color: var(--mute);
+    color: var(--ash);
   }
 
   .nike-search-pill:focus {
@@ -564,6 +535,28 @@ body {
     align-items: center;
     justify-content: space-between;
     padding: 12px 24px;
+  }
+
+  /* Text wrap balance utilities */
+  .text-wrap-balance {
+    text-wrap: balance;
+  }
+
+  .text-wrap-pretty {
+    text-wrap: pretty;
+  }
+
+  /* Nike Skeleton - pulse animation for loading/empty states */
+  .nike-skeleton {
+    background: linear-gradient(90deg, var(--hairline-soft) 25%, var(--soft-cloud) 50%, var(--hairline-soft) 75%);
+    background-size: 200% 100%;
+    animation: nike-skeleton-pulse 1.5s ease-in-out infinite;
+    border-radius: var(--rounded-sm);
+  }
+
+  @keyframes nike-skeleton-pulse {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
   }
 
   /* Nike Product Card - flat, soft-cloud image bg, no radius */
@@ -746,18 +739,12 @@ body {
 
   /* Responsive Typography */
   @media (max-width: 1023px) {
-    .text-display-campaign {
-      font-size: 64px;
-    }
     .text-heading-xl {
       font-size: 28px;
     }
   }
 
   @media (max-width: 599px) {
-    .text-display-campaign {
-      font-size: 48px;
-    }
     .text-heading-xl {
       font-size: 24px;
     }

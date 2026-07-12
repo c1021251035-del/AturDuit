@@ -151,7 +151,7 @@ export default function OnboardingPage() {
             <input
               type="text"
               inputMode="numeric"
-              className="text-heading-xl font-medium tabular-nums flex-1 bg-transparent outline-none text-[var(--ink)] placeholder:text-[var(--stone)]"
+              className="text-heading-xl font-medium tabular-nums flex-1 bg-transparent outline-none text-[var(--ink)] placeholder:text-[var(--mute)]"
               placeholder="5.000.000"
               value={state.income > 0 ? formatNumberInput(String(state.income)) : ""}
               onChange={(e) => {
