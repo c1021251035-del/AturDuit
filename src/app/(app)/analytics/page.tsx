@@ -86,11 +86,8 @@ function CompletionRing({
             <svg className="w-8 h-8 text-[var(--ink)] check-pop" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="20 6 9 17 4 12" />
             </svg>
-            <span className="text-4xl font-bold tabular-nums">100%</span>
           </>
-        ) : (
-          <span className="text-4xl font-bold tabular-nums">{percentage.toFixed(1)}%</span>
-        )}
+        ) : null}
       </div>
       <style jsx>{`
         @keyframes ringComplete {
