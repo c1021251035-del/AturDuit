@@ -12,30 +12,105 @@ const cats = ["need", "want", "save"] as const;
 /* ── SVG Insight Icons ── */
 function CheckIcon({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" /><polyline points="22 4 12 14.01 9 11.01" />
     </svg>
   );
 }
 function WarnIcon({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" /><line x1="12" y1="9" x2="12" y2="13" /><line x1="12" y1="17" x2="12.01" y2="17" />
     </svg>
   );
 }
 function DangerIcon({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="12" /><line x1="12" y1="16" x2="12.01" y2="16" />
     </svg>
   );
 }
 function InfoIcon({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <circle cx="12" cy="12" r="10" /><line x1="12" y1="16" x2="12" y2="12" /><line x1="12" y1="8" x2="12.01" y2="8" />
     </svg>
+  );
+}
+
+/* ── 100% Completion Ring (checkmark inside) ── */
+function CompletionRing({ 
+  percentage, 
+  circumference, 
+  radius = 54, 
+  viewBox = 160,
+  strokeWidth = 4,
+  size = 160,
+  className 
+}: { 
+  percentage: number; 
+  circumference: number; 
+  radius?: number; 
+  viewBox?: number;
+  strokeWidth?: number;
+  size?: number;
+  className?: string;
+}) {
+  const isComplete = percentage >= 100;
+  const offset = circumference * (1 - Math.min(percentage, 100) / 100);
+  
+  return (
+    <div className={`relative flex-shrink-0 ${className || ''}`} style={{ width: size, height: size }}>
+      <svg className="w-full h-full" viewBox={`0 0 ${viewBox} ${viewBox}`}>
+        {/* Background track */}
+        <circle fill="none" stroke="var(--hairline-soft)" strokeWidth={2} cx="80" cy="80" r={radius} />
+        {/* Progress ring */}
+        <circle
+          fill="none"
+          stroke="var(--ink)"
+          strokeWidth={strokeWidth}
+          strokeLinecap="round"
+          cx="80" cy="80" r={radius}
+          strokeDasharray={circumference}
+          strokeDashoffset={offset}
+          className={isComplete ? "ring-complete" : ""}
+          style={{ 
+            transition: "stroke-dashoffset 800ms cubic-bezier(0.16, 1, 0.3, 1)",
+          }}
+        />
+      </svg>
+      <div className="absolute inset-0 flex flex-col items-center justify-center">
+        {isComplete ? (
+          <>
+            <svg className="w-8 h-8 text-[var(--ink)] check-pop" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            <span className="text-4xl font-bold tabular-nums">100%</span>
+          </>
+        ) : (
+          <span className="text-4xl font-bold tabular-nums">{percentage.toFixed(1)}%</span>
+        )}
+      </div>
+      <style jsx>{`
+        @keyframes ringComplete {
+          0%, 100% { stroke-width: ${strokeWidth}; opacity: 1; }
+          50% { stroke-width: ${strokeWidth + 1}; opacity: 0.8; }
+        }
+        .ring-complete {
+          animation: ringComplete 2.4s cubic-bezier(0.32, 0.72, 0, 1) infinite;
+        }
+        @keyframes checkPop {
+          0% { transform: scale(0) rotate(-12deg); opacity: 0; }
+          60% { transform: scale(1.3) rotate(4deg); opacity: 1; }
+          80% { transform: scale(0.9) rotate(-2deg); }
+          100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+        .check-pop {
+          animation: checkPop 500ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+      `}</style>
+    </div>
   );
 }
 
@@ -81,22 +156,13 @@ export default function AnalyticsPage() {
           <div className="p-6 flex flex-col md:flex-row items-center gap-8">
             <div className="flex items-center gap-8 w-full md:w-auto">
               <div className="relative w-40 h-40 flex-shrink-0">
-                <svg className="w-full h-full" viewBox={`0 0 ${ANALYTICS_RING_VIEWBOX} ${ANALYTICS_RING_VIEWBOX}`}>
-                  <circle fill="none" stroke="var(--hairline-soft)" strokeWidth={2} cx="80" cy="80" r={ANALYTICS_RING_RADIUS} />
-                  <circle
-                    fill="none"
-                    stroke="var(--ink)"
-                    strokeWidth={4}
-                    strokeLinecap="round"
-                    cx="80" cy="80" r={ANALYTICS_RING_RADIUS}
-                    strokeDasharray={savingsCircumference}
-                    strokeDashoffset={savingsOffset}
-                    style={{ transition: "stroke-dashoffset 500ms cubic-bezier(0.16, 1, 0.3, 1)" }}
-                  />
-                </svg>
-                <div className="absolute inset-0 flex flex-col items-center justify-center">
-                  <span className="text-4xl font-bold tabular-nums">{savingsRate.toFixed(1)}%</span>
-                </div>
+                <CompletionRing
+                  percentage={savingsRate}
+                  circumference={savingsCircumference}
+                  radius={54}
+                  viewBox={ANALYTICS_RING_VIEWBOX}
+                  strokeWidth={4}
+                />
               </div>
               <div className="text-center md:text-left">
                 <p className="text-caption-sm text-[var(--mute)] uppercase tracking-wider">Tabungan</p>
